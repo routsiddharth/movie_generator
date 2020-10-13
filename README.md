@@ -36,7 +36,7 @@ If you prefer to use Jupyter Notebooks, I have also attached a .ipynb version of
 
 ## Project Difficulty Level
 
-This project uses web-scraping libraries, which are moderately difficult to get a hang of, but it doesn't use any OOP, just functions. 
+This project uses web-scraping libraries, which are moderately difficult to get a hang of, but it doesn't use any Object Orientated Programming.
 
 ### Difficulty Rating: 4/10
 
