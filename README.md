@@ -39,6 +39,7 @@ If you prefer to use Jupyter Notebooks, I have also attached a .ipynb version of
 Feel free to contribute in any way you wish, but the required updates are below.
 
 - Create GUI for the program, preferably using Tkinter or Django
+- Update scoring algorithm 
 
 ## Project Difficulty Level
 
