@@ -15,7 +15,7 @@ Not knowing what to watch is a problem that plagues our society. Too many choice
 
 You can install the required libraries after installing Python 3 by typing in:
 
-```py
+```
 pip install 'module_name'
 ```
 
@@ -24,6 +24,15 @@ at the command line.
 ## How does it work?
 
 This project works by scraping the IMDb website for movies and their genres. Choosing a film will give its genres a boost, which are added up to tell us your preferred genres of film. We then scrape the website another time to get films of your favourite genres back to you.
+
+## Usage
+
+You can run this file from the terminal like this:
+
+```
+python3 --movie_rec.py
+```
+If you prefer to use Jupyter Notebooks, I have also attached a .ipynb version of the file.
 
 ## Project Difficulty Level
 
