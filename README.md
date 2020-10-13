@@ -34,6 +34,12 @@ python3 --movie_rec.py
 ```
 If you prefer to use Jupyter Notebooks, I have also attached a .ipynb version of the file.
 
+## To-do
+
+Feel free to contribute in any way you wish, but the required updates are below.
+
+- Create GUI for the program, preferably using Tkinter or Django
+
 ## Project Difficulty Level
 
 This project uses web-scraping libraries, which are moderately difficult to get a hang of, but it doesn't use any Object Orientated Programming.
