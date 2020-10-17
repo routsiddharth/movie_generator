@@ -11,3 +11,5 @@ Beta 0.21: Changed genre scoring algorithm to a drop-off based algorithm
 Beta 0.22: Created multiple options for the providing of similar movies.
 
 Beta 0.30: Changed web scraping algorithm to provide variety of genres in movies.
+
+Beta 1.00: Added section to recommend TV shows as well.

@@ -12,7 +12,28 @@ movies = {}
 
 #WEB SCRAPING!
 
-links =['https://www.imdb.com/search/title/?genres=comedy&groups=top_250&sort=user_rating,desc',
+ch = ' '
+
+while True:
+    ch = input('[A] Movies\n[B] TV Shows\n\n')
+    
+    if ch == '':
+        pass
+    
+    if ch[0].upper() == 'A':
+        ch = 'MOVIE'
+        break
+        
+    elif ch[0].upper() == 'B':
+        ch = 'SHOW'
+        break
+    
+    else:
+        pass
+    
+if ch == 'MOVIE':
+
+    links =['https://www.imdb.com/search/title/?genres=comedy&groups=top_250&sort=user_rating,desc',
         'https://www.imdb.com/search/title/?genres=romance&groups=top_250&sort=user_rating,desc',
         'https://www.imdb.com/search/title/?genres=animation&groups=top_250&sort=user_rating,desc',
         'https://www.imdb.com/search/title/?genres=sci-fi&groups=top_250&sort=user_rating,desc'
@@ -24,6 +45,19 @@ links =['https://www.imdb.com/search/title/?genres=comedy&groups=top_250&sort=us
         'https://www.imdb.com/search/title/?groups=top_1000&sort=boxoffice_gross_us,desc',
         'https://www.imdb.com/search/title/?groups=top_1000&sort=user_rating,desc',
         'https://www.imdb.com/search/title/?groups=top_1000']
+
+else:
+    
+    links = ['https://www.imdb.com/search/title/?genres=comedy&explore=title_type,genres&title_type=tvSeries&ref_=adv_explore_rhs',
+             'https://www.imdb.com/search/title/?genres=animation&title_type=tv_series&num_votes=1000,&sort=user_rating,desc',
+             'https://www.imdb.com/search/title/?genres=romance&title_type=tv_series&num_votes=1000,&sort=user_rating,desc',
+             'https://www.imdb.com/search/title/?genres=sci-fi&title_type=tv_series&num_votes=1000,&sort=user_rating,desc',
+             'https://www.imdb.com/search/title/?genres=musical&title_type=tv_series&num_votes=1000,&sort=user_rating,desc',
+             'https://www.imdb.com/search/title/?genres=fantasy&title_type=tv_series&num_votes=1000,&sort=user_rating,desc',
+             'https://www.imdb.com/search/title/?genres=mystery&title_type=tv_series&num_votes=1000,&sort=user_rating,desc',
+             'https://www.imdb.com/search/title/?genres=crime&title_type=tv_series&num_votes=1000,&sort=user_rating,desc',
+             'https://www.imdb.com/list/ls008957859/',
+             'https://www.imdb.com/search/title/?countries=us&title_type=tv_series&num_votes=10000,&sort=user_rating,desc']
 
 for link in links:
     
@@ -37,11 +71,15 @@ for link in links:
         movie = item.getText()
 
         movie = re.sub(r'\d{1,}\.', '', movie)
-        movie = movie.replace('(','')
-        movie = movie.replace(')','')
-        movie = movie.replace('\n', '')
-
-        movie = movie[:-4:]
+        movie = movie.replace('\n', ' ')
+        
+        if ch == 'MOVIE':
+            movie = movie[:-4:]
+            movie = movie.replace('(','')
+            movie = movie.replace(')','')
+        else:
+            if movie[-1] == 'a' or movie[-1] == 'b':
+                movie = movie[:-1:]
         
         if movie[-2] == 'I':
             movie = movie[:-1:]
@@ -91,7 +129,7 @@ for link in links:
         movies[movie] = imdb_genres[imdb_movies.index(movie)]
         
 
-#DEFINING FUNCTIONS!
+#DEFINING FUNCTIONS AND CLASSES!
 
 def rand_movies(movies):
     
@@ -113,7 +151,7 @@ def get_choice():
     
     while choice not in ['A', 'B']:
         
-        choice = input('\n\n[A] {}\n[B] {}'.format(temp_movies[0], temp_movies[1]))
+        choice = input('\n\n[A] {}\n[B] {}\n'.format(temp_movies[0], temp_movies[1]))
         
         if choice == '':
             
@@ -213,6 +251,7 @@ def get_genres():
 def get_movies():
     
     global movies
+    global ch
     
     top_genres = get_genres()
     
@@ -220,9 +259,11 @@ def get_movies():
     
     movie_list = []
     
+    rand = random.randint(0,1)
+    
     if random.randint(0, 1) == 0:
         
-    #Option 1- movies (dict)
+    #Option 1- GENRE COMPARING
         
         movie_dict = {0:[], 1:[], 2:[], 3:[]}
 
@@ -264,7 +305,10 @@ def get_movies():
             
             temp_movies = []
             
-            link = requests.get('https://www.imdb.com/search/title/?genres={}&groups=top_250&sort=user_rating,desc'.format(genre))
+            if ch == 'SHOW':
+                link = requests.get('https://www.imdb.com/search/title/?genres={}&title_type=tv_series&num_votes=1000,&sort=user_rating,desc'.format(genre))
+            else:
+                link = requests.get('https://www.imdb.com/search/title/?genres={}&groups=top_250&sort=user_rating,desc'.format(genre))
             link = bs4.BeautifulSoup(link.text, "lxml")
             header = website.select('.lister-item-header')
             
@@ -275,11 +319,17 @@ def get_movies():
                 movie = re.sub(r'\d{1,}\.', '', movie)
                 movie = movie.replace('(','')
                 movie = movie.replace(')','')
-                movie = movie.replace('\n', '')
+                movie = movie.replace('\n', ' ')
+                
+                if ch == 'MOVIE':
+                    movie = movie[:-4:]
+                    movie = movie.replace('(','')
+                    movie = movie.replace(')','')
+                else:
+                    if movie[-1] == 'a' or movie[-1] == 'b':
+                        movie = movie[:-1:]
 
-                movie = movie[:-4:]
-
-                if movie[-1] == 'I':
+                if movie[-2] == 'I':
                     movie = movie[:-1:]
 
                 if movie[-1] == 'I':
@@ -316,17 +366,17 @@ def repeat():
 while True:
     
     print('SR2\n020\n\n')
-    print('''Welcome to the movie recommendation generator!
+    print('''Welcome to the movie/show recommendation generator!
     \nEver been on your favourite streaming platform, but you don't know what to watch? No problem!
-    \nChoose your favourite movie out of the two options- that's it!
+    \nChoose your favourite out of the two options- that's it!
     \nWe will give you movies that you will enjoy based on what you chose!
     \nDone in 2 minutes or less!
-    \n\nBeta 0.30''')
+    \n\nBeta 1.00''')
     
     best_movies = get_movies()
     
-    print('\n\nRemember, give foreign language films a chance; they might surprise you!')
-    print('Movies you will love, in no particular order, are:\n')
+    print('\n\nFive foreign language films and shows a chance; they might surprise you!')
+    print('You will love watching these:\n')
     
     for movie in best_movies: 
         print(movie)
@@ -336,3 +386,4 @@ while True:
     else:
         print('\nThank you for using the movie generator!')
         break
+        
