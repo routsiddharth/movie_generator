@@ -27,19 +27,7 @@ This project works by scraping the IMDb website for movies and their genres. Cho
 
 ## Usage
 
-You can run this file from the terminal like this:
-
-```
-python3 --movie_rec.py
-```
-If you prefer to use Jupyter Notebooks, I have also attached a .ipynb version of the file.
-
-## To-do
-
-Feel free to contribute in any way you wish, but the required updates are below.
-
-- Create GUI for the program, preferably using Tkinter or Django
-- Update scoring algorithm 
+I have attached the .ipynb Jupyter Notebook file.
 
 ## Project Difficulty Level
 
